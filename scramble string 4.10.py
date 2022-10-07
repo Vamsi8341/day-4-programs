@@ -1,0 +1,38 @@
+map={}
+def isScramble(S1: str, S2: str):
+    if len(S1) != len(S2):
+        return False
+ 
+    n = len(S1)
+    if not n:
+        return True
+    if S1 == S2:
+        return True
+    if sorted(S1) != sorted(S2):
+        return False
+    if(S1+' '+S2 in map):
+        return map[S1+' '+S2]
+    flag = False
+ 
+    for i in range(1, n):
+        if (isScramble(S1[:i], S2[:i]) and
+            isScramble(S1[i:], S2[i:])):
+            flag = True
+            return True
+        if (isScramble(S1[-i:], S2[:i]) and
+            isScramble(S1[:-i], S2[i:])):
+            flag = True
+            return True
+    map[S1+" "+S2] = flag
+    return False
+ 
+# Driver Code
+if __name__ == "__main__":
+     
+    S1 = "10"
+    S2 = "-5"
+     
+    if (isScramble(S1, S2)):
+        print("true")
+    else:
+        print("false")
